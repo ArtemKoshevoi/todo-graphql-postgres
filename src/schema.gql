@@ -2,6 +2,28 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type Task {
+  id: Int!
+  title: String!
+  status: TaskStatus!
+}
+
+"""Task Status"""
+enum TaskStatus {
+  Todo
+  InProgress
+  Completed
+}
+
 type Query {
-  sayHello: String!
+  tasks: [Task!]!
+  task(id: Int!): Task!
+}
+
+type Mutation {
+  createTask(createTaskInput: CreateTaskInput!): Task!
+}
+
+input CreateTaskInput {
+  title: String!
 }
