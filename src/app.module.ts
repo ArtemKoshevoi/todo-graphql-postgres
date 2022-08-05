@@ -1,11 +1,21 @@
 import { ApolloDriverConfig, ApolloDriver } from '@nestjs/apollo';
 import { Module } from '@nestjs/common';
+import { ConfigModule } from '@nestjs/config';
 import { GraphQLModule } from '@nestjs/graphql';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { join } from 'path';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { TasksModule } from './tasks/tasks.module';
+import { LoggerModule } from './logger/logger.module';
+
+const {
+  POSTGRES_PORT,
+  POSTGRES_HOST,
+  POSTGRES_DB,
+  POSTGRES_USER,
+  POSTGRES_PASSWORD,
+} = process.env;
 
 @Module({
   imports: [
@@ -16,16 +26,17 @@ import { TasksModule } from './tasks/tasks.module';
     TypeOrmModule.forRoot({
       keepConnectionAlive: true,
       type: 'postgres',
-      host: 'localhost',
-      port: 5432,
+      host: POSTGRES_HOST,
+      port: parseInt(POSTGRES_PORT),
       username: 'postgres',
       password: 'postgres',
-      database: 'postgres',
-      // entities: [User, Profile],
+      database: POSTGRES_DB,
       autoLoadEntities: true,
       synchronize: true,
     }),
+    ConfigModule.forRoot({ isGlobal: true }),
     TasksModule,
+    LoggerModule,
   ],
   controllers: [AppController],
   providers: [AppService],
