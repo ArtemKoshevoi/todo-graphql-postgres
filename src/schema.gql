@@ -2,28 +2,44 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
-type Task {
-  id: Int!
+input CreateTaskInput {
   title: String!
-  status: TaskStatus!
 }
 
-"""Task Status"""
-enum TaskStatus {
-  Todo
-  InProgress
-  Completed
+type LoginResponse {
+  access_token: String!
+  user: User!
 }
 
-type Query {
-  tasks: [Task!]!
-  task(id: Int!): Task!
+input LoginUserInput {
+  password: String!
+  username: String!
 }
 
 type Mutation {
   createTask(createTaskInput: CreateTaskInput!): Task!
+  login(loginUserInput: LoginUserInput!): LoginResponse!
 }
 
-input CreateTaskInput {
+type Query {
+  task(id: Int!): Task!
+  tasks: [Task!]!
+}
+
+type Task {
+  id: Int!
+  status: TaskStatus!
   title: String!
+}
+
+"""Task Status"""
+enum TaskStatus {
+  Completed
+  InProgress
+  Todo
+}
+
+type User {
+  id: String!
+  username: String!
 }

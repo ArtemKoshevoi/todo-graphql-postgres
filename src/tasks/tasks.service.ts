@@ -27,7 +27,7 @@ export class TasksService {
       .getOne();
 
     if (!task) {
-      throw new NotFoundException(`User #${id} not found`);
+      throw new NotFoundException(`Task #${id} not found`);
     }
     return task;
   }
