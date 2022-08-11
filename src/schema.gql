@@ -24,6 +24,8 @@ type Mutation {
 type Query {
   task(id: Int!): Task!
   tasks: [Task!]!
+  user(username: String!): User!
+  users: [User!]!
 }
 
 type Task {

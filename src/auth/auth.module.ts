@@ -7,9 +7,15 @@ import { AuthResolver } from './auth.resolver';
 import { UsersModule } from 'src/users/users.module';
 import { PassportModule } from '@nestjs/passport';
 import { LocalStrategy } from './local.strategy';
+import { JwtModule } from '@nestjs/jwt';
 
 @Module({
-  imports: [UsersModule, TypeOrmModule.forFeature([User]), PassportModule],
+  imports: [
+    UsersModule,
+    TypeOrmModule.forFeature([User]),
+    PassportModule,
+    JwtModule.register({ signOptions: { expiresIn: '60s' }, secret: 'secret' }), // pocsess .env
+  ],
   providers: [AuthService, AuthResolver, LocalStrategy],
   controllers: [AuthController],
 })
