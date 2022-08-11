@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { UserSignUpInput } from './inputs/user-sign-up.input';
+import { UserSignUpInput } from '../users/inputs/user-sign-up.input';
 import { User } from '../users/models/user.entity';
 import { UsersService } from 'src/users/users.service';
 import { JwtService } from '@nestjs/jwt';
@@ -16,9 +16,14 @@ export class AuthService {
   ) {}
 
   async signUp(input: UserSignUpInput): Promise<User> {
-    const { username, password } = input;
-    const user = this.userRepository.create({ username, password });
-    return await this.userRepository.save(user);
+    const user = this.usersService.findOne(input.username); // TODO: check uniqe user in database
+
+    if (user) {
+      throw new Error('User already exists');
+    }
+
+    const newUser = this.userRepository.create({ ...input });
+    return await this.userRepository.save(newUser);
   }
 
   async validateUser(username: string, pass: string): Promise<any> {
