@@ -5,6 +5,7 @@ import { UserSignUpInput } from '../users/inputs/user-sign-up.input';
 import { User } from '../users/models/user.entity';
 import { UsersService } from 'src/users/users.service';
 import { JwtService } from '@nestjs/jwt';
+import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class AuthService {
@@ -16,20 +17,25 @@ export class AuthService {
   ) {}
 
   async signUp(input: UserSignUpInput): Promise<User> {
-    const user = this.usersService.findOne(input.username); // TODO: check uniqe user in database
+    const user = await this.usersService.findOne(input.username); // TODO: check uniqe user in database
 
     if (user) {
       throw new Error('User already exists');
     }
 
-    const newUser = this.userRepository.create({ ...input });
+    const password = await bcrypt.hash(input.password, 10);
+
+    const newUser = this.userRepository.create({ ...input, password });
+
     return await this.userRepository.save(newUser);
   }
 
   async validateUser(username: string, pass: string): Promise<any> {
     const user = await this.usersService.findOne(username);
 
-    if (user && user.password === pass) {
+    const valid = await bcrypt.compare(pass, user?.password);
+
+    if (user && valid) {
       const { password, ...result } = user;
       return result;
     }

@@ -19,6 +19,7 @@ input LoginUserInput {
 type Mutation {
   createTask(createTaskInput: CreateTaskInput!): Task!
   login(loginUserInput: LoginUserInput!): LoginResponse!
+  signUp(input: UserSignUpInput!): User!
 }
 
 type Query {
@@ -43,5 +44,10 @@ enum TaskStatus {
 
 type User {
   id: String!
+  username: String!
+}
+
+input UserSignUpInput {
+  password: String!
   username: String!
 }
