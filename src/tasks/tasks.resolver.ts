@@ -1,5 +1,7 @@
 import { Args, Int, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { CreateTaskInput } from './inputs/create-task.input';
+import { UpdateTaskStatusInput } from './inputs/update-task-status';
+import { UpdateTaskTitleInput } from './inputs/update-task-title';
 import { Task } from './models/task.entity';
 import { TasksService } from './tasks.service';
 
@@ -20,5 +22,24 @@ export class TasksResolver {
   @Query(() => Task, { name: 'task' })
   findOne(@Args('id', { type: () => Int }) id: number) {
     return this.tasksService.getTask(id);
+  }
+
+  @Mutation(() => Task, { nullable: true })
+  removeTask(@Args('id', { type: () => Int }) id: number) {
+    return this.tasksService.removeTask(id);
+  }
+
+  @Mutation(() => Task)
+  updateTaskStatus(
+    @Args('updateTaskStatusInput') updateTaskStatusInput: UpdateTaskStatusInput,
+  ) {
+    return this.tasksService.updateTaskStatus(updateTaskStatusInput);
+  }
+
+  @Mutation(() => Task)
+  updateTaskTitle(
+    @Args('updateTaskTitleInput') updateTaskTitleInput: UpdateTaskTitleInput,
+  ) {
+    return this.tasksService.updateTaskTitle(updateTaskTitleInput);
   }
 }

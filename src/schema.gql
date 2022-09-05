@@ -19,7 +19,10 @@ input LoginUserInput {
 type Mutation {
   createTask(createTaskInput: CreateTaskInput!): Task!
   login(loginUserInput: LoginUserInput!): LoginResponse!
+  removeTask(id: Int!): Task
   signUp(input: UserSignUpInput!): User!
+  updateTaskStatus(updateTaskStatusInput: UpdateTaskStatusInput!): Task!
+  updateTaskTitle(updateTaskTitleInput: UpdateTaskTitleInput!): Task!
 }
 
 type Query {
@@ -38,8 +41,17 @@ type Task {
 """Task Status"""
 enum TaskStatus {
   Completed
-  InProgress
   Todo
+}
+
+input UpdateTaskStatusInput {
+  id: Int!
+  status: TaskStatus!
+}
+
+input UpdateTaskTitleInput {
+  id: Int!
+  title: String!
 }
 
 type User {

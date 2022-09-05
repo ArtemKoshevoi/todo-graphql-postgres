@@ -3,6 +3,8 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { MyLogger } from 'src/logger/my-logger.service';
 import { Repository } from 'typeorm';
 import { CreateTaskInput } from './inputs/create-task.input';
+import { UpdateTaskStatusInput } from './inputs/update-task-status';
+import { UpdateTaskTitleInput } from './inputs/update-task-title';
 import { Task } from './models/task.entity';
 
 @Injectable()
@@ -37,5 +39,24 @@ export class TasksService {
     this.myLogger.customLog();
 
     return await this.taskRepository.find();
+  }
+
+  async removeTask(id: number): Promise<void> {
+    await this.taskRepository.delete(id);
+  }
+
+  async updateTaskStatus(input: UpdateTaskStatusInput): Promise<Task> {
+    const { id, status } = input;
+    await this.taskRepository.update(id, { status: status });
+
+    return this.getTask(id);
+  }
+
+  async updateTaskTitle(input: UpdateTaskTitleInput): Promise<Task> {
+    const { id, title } = input;
+
+    await this.taskRepository.update(id, { title: title });
+
+    return this.getTask(id);
   }
 }
