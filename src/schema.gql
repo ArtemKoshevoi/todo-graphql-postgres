@@ -2,64 +2,12 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
-input CreateTaskInput {
-  title: String!
-}
-
-type LoginResponse {
-  access_token: String!
-  user: User!
-}
-
-input LoginUserInput {
-  password: String!
-  username: String!
-}
-
-type Mutation {
-  createTask(createTaskInput: CreateTaskInput!): Task!
-  login(loginUserInput: LoginUserInput!): LoginResponse!
-  removeTask(id: Int!): Task
-  signUp(input: UserSignUpInput!): User!
-  updateTaskStatus(updateTaskStatusInput: UpdateTaskStatusInput!): Task!
-  updateTaskTitle(updateTaskTitleInput: UpdateTaskTitleInput!): Task!
-}
-
 type Query {
-  task(id: Int!): Task!
-  tasks: [Task!]!
   user(username: String!): User!
   users: [User!]!
 }
 
-type Task {
-  id: Int!
-  status: TaskStatus!
-  title: String!
-}
-
-"""Task Status"""
-enum TaskStatus {
-  Completed
-  Todo
-}
-
-input UpdateTaskStatusInput {
-  id: Int!
-  status: TaskStatus!
-}
-
-input UpdateTaskTitleInput {
-  id: Int!
-  title: String!
-}
-
 type User {
   id: String!
-  username: String!
-}
-
-input UserSignUpInput {
-  password: String!
   username: String!
 }

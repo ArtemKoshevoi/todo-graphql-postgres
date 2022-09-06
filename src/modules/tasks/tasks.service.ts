@@ -3,9 +3,9 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
 import { MyLogger } from '../logger/my-logger.service';
-import { CreateTaskInput } from './inputs/create-task.input';
-import { UpdateTaskStatusInput } from './inputs/update-task-status';
-import { UpdateTaskTitleInput } from './inputs/update-task-title';
+import { CreateTaskInput } from './dto/create-task.input';
+import { UpdateTaskStatusInput } from './dto/update-task-status';
+import { UpdateTaskTitleInput } from './dto/update-task-title';
 import { Task } from './models/task.entity';
 
 @Injectable()

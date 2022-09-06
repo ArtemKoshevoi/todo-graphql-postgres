@@ -4,7 +4,7 @@ import { Repository } from 'typeorm';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
 
-import { UserSignUpInput } from '../users/inputs/user-sign-up.input';
+import { UserSignUpInput } from '../users/dto/user-sign-up.input';
 import { User } from '../users/models/user.entity';
 import { UsersService } from '../users/users.service';
 
