@@ -1,6 +1,7 @@
 import { Field, Int, ObjectType } from '@nestjs/graphql';
-import { TaskStatus } from 'src/shared/enums/task-status.enum';
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+
+import { TaskStatus } from 'src/modules/shared/enums/task-status.enum';
 
 @Entity()
 @ObjectType()

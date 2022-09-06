@@ -1,7 +1,8 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { MyLogger } from 'src/logger/my-logger.service';
 import { Repository } from 'typeorm';
+
+import { MyLogger } from '../logger/my-logger.service';
 import { CreateTaskInput } from './inputs/create-task.input';
 import { UpdateTaskStatusInput } from './inputs/update-task-status';
 import { UpdateTaskTitleInput } from './inputs/update-task-title';

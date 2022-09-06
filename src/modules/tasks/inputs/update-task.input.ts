@@ -1,6 +1,7 @@
 import { Field, InputType, Int, PartialType } from '@nestjs/graphql';
 import { IsEnum, IsOptional } from 'class-validator';
-import { TaskStatus } from 'src/shared/enums/task-status.enum';
+
+import { TaskStatus } from 'src/modules/shared/enums/task-status.enum';
 import { CreateTaskInput } from './create-task.input';
 
 @InputType()
