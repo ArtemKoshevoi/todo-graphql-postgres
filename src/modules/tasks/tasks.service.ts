@@ -4,8 +4,7 @@ import { Repository } from 'typeorm';
 
 import { MyLogger } from '../logger/my-logger.service';
 import { CreateTaskInput } from './dto/create-task.input';
-import { UpdateTaskStatusInput } from './dto/update-task-status';
-import { UpdateTaskTitleInput } from './dto/update-task-title';
+import { UpdateTaskInput } from './dto/update-task.input';
 import { Task } from './models/task.entity';
 
 @Injectable()
@@ -46,17 +45,10 @@ export class TasksService {
     await this.taskRepository.delete(id);
   }
 
-  async updateTaskStatus(input: UpdateTaskStatusInput): Promise<Task> {
-    const { id, status } = input;
-    await this.taskRepository.update(id, { status: status });
+  async updateTask(input: UpdateTaskInput): Promise<Task> {
+    const { id, title, status } = input;
 
-    return this.getTask(id);
-  }
-
-  async updateTaskTitle(input: UpdateTaskTitleInput): Promise<Task> {
-    const { id, title } = input;
-
-    await this.taskRepository.update(id, { title: title });
+    await this.taskRepository.update(id, { title: title, status: status });
 
     return this.getTask(id);
   }

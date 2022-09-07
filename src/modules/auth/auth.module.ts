@@ -11,6 +11,7 @@ import { LocalStrategy } from './local.strategy';
 import { User } from '../users/models/user.entity';
 import { UsersModule } from '../users/users.module';
 import { JwtConfigService } from '../core/jwt/jwt-config.service';
+import { AuthMutationResolver } from './auth.mutation.resolver';
 
 @Module({
   imports: [
@@ -21,7 +22,13 @@ import { JwtConfigService } from '../core/jwt/jwt-config.service';
       useClass: JwtConfigService,
     }),
   ],
-  providers: [AuthService, AuthResolver, LocalStrategy, JwtStrategy],
+  providers: [
+    AuthService,
+    AuthResolver,
+    AuthMutationResolver,
+    LocalStrategy,
+    JwtStrategy,
+  ],
   controllers: [AuthController],
 })
 export class AuthModule {}

@@ -1,7 +1,8 @@
 import { Args, Int, Mutation, ResolveField, Resolver } from '@nestjs/graphql';
 import { CreateTaskInput } from './dto/create-task.input';
-import { UpdateTaskStatusInput } from './dto/update-task-status';
-import { UpdateTaskTitleInput } from './dto/update-task-title';
+// import { UpdateTaskStatusInput } from './dto/update-task-status';
+// import { UpdateTaskTitleInput } from './dto/update-task-title';
+import { UpdateTaskInput } from './dto/update-task.input';
 import { TasksMutation } from './models/tasks.mutation.model';
 import { TasksService } from './tasks.service';
 
@@ -15,8 +16,8 @@ export class TasksMutationResolver {
   }
 
   @ResolveField()
-  createTask(@Args('createTaskInput') createTaskInput: CreateTaskInput) {
-    return this.tasksService.createTask(createTaskInput);
+  createTask(@Args('input') input: CreateTaskInput) {
+    return this.tasksService.createTask(input);
   }
 
   @ResolveField()
@@ -25,16 +26,7 @@ export class TasksMutationResolver {
   }
 
   @ResolveField()
-  updateTaskStatus(
-    @Args('updateTaskStatusInput') updateTaskStatusInput: UpdateTaskStatusInput,
-  ) {
-    return this.tasksService.updateTaskStatus(updateTaskStatusInput);
-  }
-
-  @ResolveField()
-  updateTaskTitle(
-    @Args('updateTaskTitleInput') updateTaskTitleInput: UpdateTaskTitleInput,
-  ) {
-    return this.tasksService.updateTaskTitle(updateTaskTitleInput);
+  updateTask(@Args('input') input: UpdateTaskInput) {
+    return this.tasksService.updateTask(input);
   }
 }

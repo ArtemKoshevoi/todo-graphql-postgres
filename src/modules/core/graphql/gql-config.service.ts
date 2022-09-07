@@ -1,4 +1,3 @@
-import { ApolloDriver } from '@nestjs/apollo';
 import { Injectable } from '@nestjs/common';
 import { GqlModuleOptions, GqlOptionsFactory } from '@nestjs/graphql';
 import { join } from 'path';

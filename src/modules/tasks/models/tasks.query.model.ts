@@ -4,7 +4,7 @@ import { Task } from './task.entity';
 @ObjectType()
 export class TasksQuery {
   @Field((type) => [Task])
-  readonly findAll: [Task];
+  readonly findAll: Task[];
 
   @Field((type) => Task)
   readonly findOne: Task;
