@@ -3,19 +3,24 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
+import * as jwt from 'jsonwebtoken';
 
 import { UserSignUpInput } from '../users/dto/user-sign-up.input';
 import { User } from '../users/models/user.entity';
 import { UsersService } from '../users/users.service';
 import { SignUpResponse } from './dto/signup-response';
+import { ConfigService } from '@nestjs/config';
 
 @Injectable()
 export class AuthService {
+  private jwtSecretKey = this.configService.get('JWT_SECRET_KEY');
+
   constructor(
     @InjectRepository(User)
     private userRepository: Repository<User>,
     private usersService: UsersService,
     private jwtService: JwtService,
+    private readonly configService: ConfigService,
   ) {}
 
   async signUp(input: UserSignUpInput): Promise<SignUpResponse> {
@@ -60,5 +65,28 @@ export class AuthService {
       }),
       user,
     };
+  }
+
+  getToken(authHeader?: string) {
+    if (!authHeader) {
+      return;
+    }
+
+    const match = authHeader.match(/[Bb]earer (?<token>.*)/);
+    if (!match) {
+      return;
+    }
+
+    const { token } = match.groups;
+
+    return token;
+  }
+
+  verifyToken(token: string) {
+    try {
+      return jwt.verify(token, this.jwtSecretKey);
+    } catch (e) {
+      return null;
+    }
   }
 }

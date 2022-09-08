@@ -77,12 +77,20 @@ input UpdateTaskInput {
 
 type User {
   id: String!
+  roles: [UserRole!]
+  token: String
   username: String!
 }
 
 type UserQuery {
   findAll: [User!]!
   findOne(username: String!): String!
+}
+
+"""User role"""
+enum UserRole {
+  Admin
+  User
 }
 
 input UserSignUpInput {

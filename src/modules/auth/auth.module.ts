@@ -30,5 +30,6 @@ import { AuthMutationResolver } from './auth.mutation.resolver';
     JwtStrategy,
   ],
   controllers: [AuthController],
+  exports: [AuthService],
 })
 export class AuthModule {}
