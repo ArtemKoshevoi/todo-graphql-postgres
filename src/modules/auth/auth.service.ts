@@ -10,6 +10,7 @@ import { User } from '../users/models/user.entity';
 import { UsersService } from '../users/users.service';
 import { SignUpResponse } from './dto/signup-response';
 import { ConfigService } from '@nestjs/config';
+import { LoginUserInput } from '../users/dto/login-user.input';
 
 @Injectable()
 export class AuthService {
@@ -57,7 +58,10 @@ export class AuthService {
     return null;
   }
 
-  async login(user: User) {
+  async login(input: LoginUserInput) {
+    const { username } = input;
+    const user = await this.usersService.findOne(username);
+
     return {
       access_token: this.jwtService.sign({
         username: user.username,
@@ -73,6 +77,7 @@ export class AuthService {
     }
 
     const match = authHeader.match(/[Bb]earer (?<token>.*)/);
+
     if (!match) {
       return;
     }

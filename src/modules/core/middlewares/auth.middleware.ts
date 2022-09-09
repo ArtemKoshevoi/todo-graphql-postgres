@@ -1,10 +1,10 @@
-import { NestMiddleware } from '@nestjs/common';
+import { Injectable, NestMiddleware } from '@nestjs/common';
 import { plainToClass } from 'class-transformer';
 import { NextFunction } from 'express';
 import { AuthService } from 'src/modules/auth/auth.service';
 import { User } from 'src/modules/users/models/user.entity';
 import { UsersService } from 'src/modules/users/users.service';
-
+@Injectable()
 export class AuthMiddleware implements NestMiddleware {
   constructor(
     private readonly authService: AuthService,
@@ -22,6 +22,7 @@ export class AuthMiddleware implements NestMiddleware {
     }
 
     const isVerified = await this.authService.verifyToken(token);
+
     if (!isVerified) {
       return next();
     }
