@@ -5,10 +5,14 @@
 """AuthMutation"""
 type AuthMutation {
   """Login and get user and token"""
-  login(input: LoginUserInput!): LoginResponse!
+  login(input: UserLoginInput!): LoginResponse!
 
   """User sign up and get user and token"""
   signUp(input: UserSignUpInput!): SignUpResponse!
+}
+
+input CreateProfileInput {
+  userName: String!
 }
 
 input CreateTaskInput {
@@ -20,14 +24,15 @@ type LoginResponse {
   user: User!
 }
 
-input LoginUserInput {
-  password: String!
-  username: String!
-}
-
 type Mutation {
   auth: AuthMutation!
   tasks: TasksMutation!
+}
+
+type Profile {
+  id: String!
+  userId: Int!
+  username: String!
 }
 
 type Query {
@@ -77,8 +82,13 @@ input UpdateTaskInput {
 
 type User {
   id: String!
-  roles: [UserRole!]
+  profile: Profile!
+  roles: [UserRole!]!
   token: String
+}
+
+input UserLoginInput {
+  password: String!
   username: String!
 }
 
@@ -95,5 +105,6 @@ enum UserRole {
 
 input UserSignUpInput {
   password: String!
-  username: String!
+  profile: CreateProfileInput!
+  roles: [UserRole!]!
 }

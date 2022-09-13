@@ -15,10 +15,9 @@ export class UsersService {
   }
 
   async findOne(username: string): Promise<User | undefined> {
-    const user = await this.userRepository
-      .createQueryBuilder('user')
-      .where('user.username = :username', { username: username })
-      .getOne();
+    const user = await this.userRepository.findOne({
+      where: { profile: { username: username } },
+    });
 
     return user;
   }

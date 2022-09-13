@@ -5,12 +5,12 @@ import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
 import * as jwt from 'jsonwebtoken';
 
-import { UserSignUpInput } from '../users/dto/user-sign-up.input';
 import { User } from '../users/models/user.entity';
 import { UsersService } from '../users/users.service';
 import { SignUpResponse } from './dto/signup-response';
 import { ConfigService } from '@nestjs/config';
-import { LoginUserInput } from '../users/dto/login-user.input';
+import { UserSignUpInput } from './dto/user-signup.input';
+import { UserLoginInput } from './dto/user-login.input';
 
 @Injectable()
 export class AuthService {
@@ -25,21 +25,26 @@ export class AuthService {
   ) {}
 
   async signUp(input: UserSignUpInput): Promise<SignUpResponse> {
-    const user = await this.usersService.findOne(input.username); // TODO: check unique user in database
+    const user = await this.usersService.findOne(input.profile.userName);
 
     if (user) {
       throw new Error('User already exists');
     }
 
-    const password = await bcrypt.hash(input.password, 10);
+    const { profile, ...data } = input;
 
-    const newUser = this.userRepository.create({ ...input, password });
+    const newUser = this.userRepository.create({
+      ...data,
+      profile: { username: profile.userName },
+    });
+    newUser.password = await bcrypt.hash(input.password, 10);
 
     const createdUser = await this.userRepository.save(newUser);
+    const userProfile = await createdUser.profile;
 
     return {
       access_token: this.jwtService.sign({
-        username: createdUser.username,
+        username: userProfile.username,
         sub: createdUser.id,
       }),
       user: createdUser,
@@ -58,13 +63,14 @@ export class AuthService {
     return null;
   }
 
-  async login(input: LoginUserInput) {
+  async login(input: UserLoginInput) {
     const { username } = input;
     const user = await this.usersService.findOne(username);
+    const profile = await user.profile;
 
     return {
       access_token: this.jwtService.sign({
-        username: user.username,
+        username: profile.username,
         sub: user.id,
       }),
       user,
