@@ -1,9 +1,13 @@
 import { Field, ObjectType } from '@nestjs/graphql';
 import { UserRole } from 'src/modules/shared/enums/user-role.enum';
+import { UserToTask } from 'src/modules/shared/models/user-to-task.entity';
+import { Task } from 'src/modules/tasks/models/task.entity';
 import { Profile } from 'src/profiles/entities/profile.entity';
 import {
   Column,
   Entity,
+  ManyToMany,
+  OneToMany,
   OneToOne,
   PrimaryGeneratedColumn,
   RelationId,
@@ -15,10 +19,6 @@ export class User {
   @PrimaryGeneratedColumn('uuid')
   @Field()
   id: string;
-
-  // @Column()
-  // @Field()
-  // username: string;
 
   @Column({ nullable: true })
   password?: string;
@@ -44,4 +44,9 @@ export class User {
 
   @RelationId((user: User) => user.profile)
   readonly profileId?: number;
+
+  // @ManyToMany(() => Task, (task) => task.users)
+  // tasks: Task[];
+  @OneToMany(() => UserToTask, (userToTask) => userToTask.user)
+  public userToTasks!: UserToTask[];
 }

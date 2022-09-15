@@ -47,14 +47,7 @@ type SignUpResponse {
 
 type Task {
   id: Int!
-  status: TaskStatus!
   title: String!
-}
-
-"""Task Status"""
-enum TaskStatus {
-  Completed
-  Todo
 }
 
 """TasksMutation"""
@@ -76,7 +69,6 @@ type TasksQuery {
 
 input UpdateTaskInput {
   id: Int!
-  status: TaskStatus!
   title: String!
 }
 

@@ -46,9 +46,9 @@ export class TasksService {
   }
 
   async updateTask(input: UpdateTaskInput): Promise<Task> {
-    const { id, title, status } = input;
+    const { id, title } = input;
 
-    await this.taskRepository.update(id, { title: title, status: status });
+    await this.taskRepository.update(id, { title: title });
 
     return this.getTask(id);
   }

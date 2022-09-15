@@ -14,12 +14,13 @@ import { JwtConfigService } from '../core/jwt/jwt-config.service';
 import { AuthMutationResolver } from './auth.mutation.resolver';
 import { Profile } from 'src/profiles/entities/profile.entity';
 import { ProfilesModule } from 'src/profiles/profiles.module';
+import { UserToTask } from '../shared/models/user-to-task.entity';
 
 @Module({
   imports: [
     UsersModule,
     ProfilesModule,
-    TypeOrmModule.forFeature([User, Profile]),
+    TypeOrmModule.forFeature([User, Profile, UserToTask]),
     PassportModule,
     JwtModule.registerAsync({
       useClass: JwtConfigService,

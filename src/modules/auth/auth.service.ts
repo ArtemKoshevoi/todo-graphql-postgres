@@ -42,11 +42,17 @@ export class AuthService {
     const createdUser = await this.userRepository.save(newUser);
     const userProfile = await createdUser.profile;
 
+    const accessToken = this.jwtService.sign({
+      username: userProfile.username,
+      sub: createdUser.id,
+    });
+
+    await this.userRepository.save(
+      this.userRepository.merge(createdUser, { token: accessToken }),
+    );
+
     return {
-      access_token: this.jwtService.sign({
-        username: userProfile.username,
-        sub: createdUser.id,
-      }),
+      access_token: accessToken,
       user: createdUser,
     };
   }

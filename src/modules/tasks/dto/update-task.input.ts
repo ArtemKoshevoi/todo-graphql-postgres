@@ -8,10 +8,10 @@ export class UpdateTaskInput {
   @Field(() => Int)
   id: number;
 
-  @Field(() => TaskStatus)
-  @IsEnum(TaskStatus)
-  @IsOptional()
-  status: TaskStatus;
+  // @Field(() => TaskStatus)
+  // @IsEnum(TaskStatus)
+  // @IsOptional()
+  // status: TaskStatus;
 
   @Field()
   @IsOptional()
