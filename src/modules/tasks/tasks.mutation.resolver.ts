@@ -1,5 +1,7 @@
 import { Args, Int, Mutation, ResolveField, Resolver } from '@nestjs/graphql';
 import { Roles } from '../shared/decorators/roles.decortors';
+import { ActiveUser } from '../shared/decorators/user.decorator';
+import { User } from '../users/models/user.entity';
 import { CreateTaskInput } from './dto/create-task.input';
 import { UpdateTaskInput } from './dto/update-task.input';
 import { TasksMutation } from './models/tasks.mutation.model';
@@ -16,8 +18,8 @@ export class TasksMutationResolver {
 
   @ResolveField()
   @Roles()
-  createTask(@Args('input') input: CreateTaskInput) {
-    return this.tasksService.createTask(input);
+  createTask(@Args('input') input: CreateTaskInput, @ActiveUser() user: User) {
+    return this.tasksService.createTask(input, user);
   }
 
   @ResolveField()

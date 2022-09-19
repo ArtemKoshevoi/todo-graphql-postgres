@@ -1,12 +1,10 @@
 import { Field, ObjectType } from '@nestjs/graphql';
 import { UserRole } from 'src/modules/shared/enums/user-role.enum';
-import { UserToTask } from 'src/modules/shared/models/user-to-task.entity';
-import { Task } from 'src/modules/tasks/models/task.entity';
+import { UserTask } from 'src/modules/user-task/models/user-task.entity';
 import { Profile } from 'src/profiles/entities/profile.entity';
 import {
   Column,
   Entity,
-  ManyToMany,
   OneToMany,
   OneToOne,
   PrimaryGeneratedColumn,
@@ -45,8 +43,6 @@ export class User {
   @RelationId((user: User) => user.profile)
   readonly profileId?: number;
 
-  // @ManyToMany(() => Task, (task) => task.users)
-  // tasks: Task[];
-  @OneToMany(() => UserToTask, (userToTask) => userToTask.user)
-  public userToTasks!: UserToTask[];
+  @OneToMany(() => UserTask, (userTask) => userTask.user)
+  public userTask!: UserTask[];
 }

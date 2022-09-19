@@ -21,4 +21,10 @@ export class UsersService {
 
     return user;
   }
+
+  async findOneByToken(token: string): Promise<User | undefined> {
+    const user = await this.userRepository.findOneBy({ token });
+
+    return user;
+  }
 }

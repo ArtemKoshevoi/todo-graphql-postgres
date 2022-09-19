@@ -3,6 +3,7 @@ import { ProfilesModule } from 'src/profiles/profiles.module';
 import { AuthModule } from '../auth/auth.module';
 import { LoggerModule } from '../logger/logger.module';
 import { TasksModule } from '../tasks/tasks.module';
+import { UserTaskModule } from '../user-task/user-task.module';
 import { UsersModule } from '../users/users.module';
 
 const guards = [];
@@ -14,6 +15,7 @@ const modules = [
   AuthModule,
   UsersModule,
   ProfilesModule,
+  UserTaskModule,
 ];
 
 @Global()

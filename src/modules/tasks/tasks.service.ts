@@ -3,6 +3,9 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
 import { MyLogger } from '../logger/my-logger.service';
+import { UserRole } from '../shared/enums/user-role.enum';
+import { UserTaskService } from '../user-task/user-task.service';
+import { User } from '../users/models/user.entity';
 import { CreateTaskInput } from './dto/create-task.input';
 import { UpdateTaskInput } from './dto/update-task.input';
 import { Task } from './models/task.entity';
@@ -13,13 +16,20 @@ export class TasksService {
     @InjectRepository(Task)
     private readonly taskRepository: Repository<Task>,
     private myLogger: MyLogger,
+    private readonly userTaskService: UserTaskService,
   ) {
     this.myLogger.setContext('TasksService');
   }
 
-  async createTask(input: CreateTaskInput): Promise<Task> {
-    const task = this.taskRepository.create(input);
-    return await this.taskRepository.save(task);
+  async createTask(input: CreateTaskInput, user: User): Promise<Task> {
+    if (user?.roles?.includes(UserRole.User)) {
+      const task = await this.taskRepository.save(
+        this.taskRepository.create(input),
+      );
+      this.userTaskService.assingTaskToUser(user.id, task.id);
+
+      return task;
+    }
   }
 
   async getTask(id: number): Promise<Task> {

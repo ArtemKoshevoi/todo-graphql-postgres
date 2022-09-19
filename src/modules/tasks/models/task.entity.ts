@@ -1,16 +1,7 @@
 import { Field, Int, ObjectType } from '@nestjs/graphql';
-import {
-  Column,
-  Entity,
-  JoinTable,
-  ManyToMany,
-  OneToMany,
-  PrimaryGeneratedColumn,
-} from 'typeorm';
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
-import { TaskStatus } from 'src/modules/shared/enums/task-status.enum';
-import { User } from 'src/modules/users/models/user.entity';
-import { UserToTask } from 'src/modules/shared/models/user-to-task.entity';
+import { UserTask } from 'src/modules/user-task/models/user-task.entity';
 
 @Entity()
 @ObjectType()
@@ -23,17 +14,6 @@ export class Task {
   @Column()
   title: string;
 
-  @OneToMany(() => UserToTask, (userToTask) => userToTask.task)
-  public userToTasks!: UserToTask[];
-
-  // @ManyToMany(() => User, (user) => user.tasks)
-  // @JoinTable()
-  // users: User[];
-
-  // @Field(() => TaskStatus)
-  // @Column('enum', {
-  //   enum: TaskStatus,
-  //   default: TaskStatus.Todo,
-  // })
-  // status: TaskStatus;
+  @OneToMany(() => UserTask, (userTask) => userTask.task)
+  public userTask!: UserTask[];
 }
