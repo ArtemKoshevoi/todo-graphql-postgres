@@ -5,8 +5,9 @@ import { LoggerModule } from '../logger/logger.module';
 import { TasksModule } from '../tasks/tasks.module';
 import { UserTaskModule } from '../user-task/user-task.module';
 import { UsersModule } from '../users/users.module';
+import { RolesGuard } from './guards/roles.guard';
 
-const guards = [];
+const guards = [RolesGuard];
 const providers = [];
 const services = [];
 const modules = [
