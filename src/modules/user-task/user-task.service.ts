@@ -8,7 +8,7 @@ import { UserTask } from './models/user-task.entity';
 export class UserTaskService {
   constructor(
     @InjectRepository(UserTask)
-    private readonly taskRepository: Repository<UserTask>,
+    private readonly userTaskRepository: Repository<UserTask>,
   ) {}
 
   async assingTaskToUser(
@@ -16,12 +16,8 @@ export class UserTaskService {
     taskId: number,
     taskStatus?: TaskStatus,
   ) {
-    console.log(111, userId);
-    console.log(222, taskId);
-    console.log(333, taskStatus);
-
-    this.taskRepository.save(
-      this.taskRepository.create({ userId, taskId, taskStatus }),
+    return this.userTaskRepository.save(
+      this.userTaskRepository.create({ userId, taskId, taskStatus }),
     );
   }
 }

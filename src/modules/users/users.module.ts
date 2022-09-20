@@ -4,7 +4,7 @@ import { User } from './models/user.entity';
 import { UsersService } from './users.service';
 import { UsersResolver } from './users.resolver';
 import { UserQueryResolver } from './users.query.resolver';
-import { Profile } from 'src/profiles/entities/profile.entity';
+import { Profile } from 'src/modules/profiles/entities/profile.entity';
 
 @Module({
   imports: [TypeOrmModule.forFeature([User, Profile])],

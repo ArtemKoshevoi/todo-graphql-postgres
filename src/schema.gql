@@ -2,6 +2,11 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+input AssignTaskInput {
+  taskId: Int!
+  userId: String!
+}
+
 """AuthMutation"""
 type AuthMutation {
   """Login and get user and token"""
@@ -52,8 +57,11 @@ type Task {
 
 """TasksMutation"""
 type TasksMutation {
+  """Assign task"""
+  assignTask(input: AssignTaskInput!): UserTask!
+
   """Create new task"""
-  createTask(input: CreateTaskInput!): Task!
+  createTask(input: CreateTaskInput!): UserTask!
 
   """Remove task"""
   removeTask(id: Int!): Task
@@ -99,4 +107,11 @@ input UserSignUpInput {
   password: String!
   profile: CreateProfileInput!
   roles: [UserRole!]!
+}
+
+type UserTask {
+  id: Float!
+  taskId: Float!
+  taskStatus: String
+  userId: String!
 }

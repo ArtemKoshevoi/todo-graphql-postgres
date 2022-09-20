@@ -1,5 +1,5 @@
 import { Global, Module } from '@nestjs/common';
-import { ProfilesModule } from 'src/profiles/profiles.module';
+import { ProfilesModule } from 'src/modules/profiles/profiles.module';
 import { AuthModule } from '../auth/auth.module';
 import { LoggerModule } from '../logger/logger.module';
 import { TasksModule } from '../tasks/tasks.module';

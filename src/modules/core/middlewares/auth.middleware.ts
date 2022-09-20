@@ -23,20 +23,11 @@ export class AuthMiddleware implements NestMiddleware {
 
     const isVerified = await this.authService.verifyToken(token);
 
-    // console.log(111, 'isVerified', isVerified);
-
     if (!isVerified) {
       return next();
     }
 
-    const users = await this.userService.findAll();
-
-    // console.log(222, 'users', users);
-    // console.log(333, 'token', token);
-
     const user = await this.userService.findOneByToken(token); // TODO: check BasicOrmService
-
-    // console.log(333, user);
 
     if (!user) {
       return next();

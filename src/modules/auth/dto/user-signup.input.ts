@@ -2,7 +2,7 @@ import { InputType, Field } from '@nestjs/graphql';
 import { Type } from 'class-transformer';
 import { IsNotEmpty, IsArray, IsString, ValidateNested } from 'class-validator';
 import { UserRole } from 'src/modules/shared/enums/user-role.enum';
-import { CreateProfileInput } from 'src/profiles/dto/create-profile.input';
+import { CreateProfileInput } from 'src/modules/profiles/dto/create-profile.input';
 
 @InputType()
 export class UserSignUpInput {

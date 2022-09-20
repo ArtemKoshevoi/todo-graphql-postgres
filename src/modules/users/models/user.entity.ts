@@ -1,7 +1,7 @@
 import { Field, ObjectType } from '@nestjs/graphql';
 import { UserRole } from 'src/modules/shared/enums/user-role.enum';
 import { UserTask } from 'src/modules/user-task/models/user-task.entity';
-import { Profile } from 'src/profiles/entities/profile.entity';
+import { Profile } from 'src/modules/profiles/entities/profile.entity';
 import {
   Column,
   Entity,

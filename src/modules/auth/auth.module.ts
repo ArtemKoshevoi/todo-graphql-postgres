@@ -12,8 +12,8 @@ import { User } from '../users/models/user.entity';
 import { UsersModule } from '../users/users.module';
 import { JwtConfigService } from '../core/jwt/jwt-config.service';
 import { AuthMutationResolver } from './auth.mutation.resolver';
-import { Profile } from 'src/profiles/entities/profile.entity';
-import { ProfilesModule } from 'src/profiles/profiles.module';
+import { Profile } from 'src/modules/profiles/entities/profile.entity';
+import { ProfilesModule } from 'src/modules/profiles/profiles.module';
 import { UserTask } from '../user-task/models/user-task.entity';
 
 @Module({

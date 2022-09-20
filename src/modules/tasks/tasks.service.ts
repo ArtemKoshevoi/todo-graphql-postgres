@@ -4,8 +4,10 @@ import { Repository } from 'typeorm';
 
 import { MyLogger } from '../logger/my-logger.service';
 import { UserRole } from '../shared/enums/user-role.enum';
+import { UserTask } from '../user-task/models/user-task.entity';
 import { UserTaskService } from '../user-task/user-task.service';
 import { User } from '../users/models/user.entity';
+import { AssignTaskInput } from './dto/assign-task.input';
 import { CreateTaskInput } from './dto/create-task.input';
 import { UpdateTaskInput } from './dto/update-task.input';
 import { Task } from './models/task.entity';
@@ -21,14 +23,12 @@ export class TasksService {
     this.myLogger.setContext('TasksService');
   }
 
-  async createTask(input: CreateTaskInput, user: User): Promise<Task> {
+  async createTask(input: CreateTaskInput, user: User): Promise<UserTask> {
     if (user?.roles?.includes(UserRole.User)) {
       const task = await this.taskRepository.save(
         this.taskRepository.create(input),
       );
-      this.userTaskService.assingTaskToUser(user.id, task.id);
-
-      return task;
+      return await this.userTaskService.assingTaskToUser(user.id, task.id);
     }
   }
 
@@ -61,5 +61,11 @@ export class TasksService {
     await this.taskRepository.update(id, { title: title });
 
     return this.getTask(id);
+  }
+
+  async assignTask(input: AssignTaskInput): Promise<UserTask> {
+    const { taskId, userId } = input;
+
+    return await this.userTaskService.assingTaskToUser(userId, taskId);
   }
 }

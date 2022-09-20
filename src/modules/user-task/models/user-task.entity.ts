@@ -8,18 +8,22 @@ import { TaskStatus } from '../../shared/enums/task-status.enum';
 @ObjectType()
 export class UserTask {
   @PrimaryGeneratedColumn()
+  @Field()
   id: number;
 
   @Column()
+  @Field()
   userId: string;
 
   @Column()
+  @Field()
   taskId: number; // TODO: change to string like userId
 
   @Column('enum', {
     enum: TaskStatus,
     default: TaskStatus.Todo,
   })
+  @Field({ nullable: true })
   taskStatus: TaskStatus;
 
   @ManyToOne(() => User, (user) => user.userTask)
