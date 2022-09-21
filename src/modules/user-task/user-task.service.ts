@@ -18,6 +18,12 @@ export class UserTaskService {
     });
   }
 
+  async getUserTasks(userId: string) {
+    return await this.userTaskRepository.findBy({
+      userId,
+    });
+  }
+
   async assingTaskToUser(userId: string, taskId: number) {
     const userTask = await this.getUserTask(userId, taskId);
 
@@ -37,6 +43,6 @@ export class UserTaskService {
 
     await this.userTaskRepository.delete(userTask.id);
 
-    return userTask; //TODO: check how to return nothing
+    return userTask; //TODO: check how to return nothig (or boolean true like on present perfect)
   }
 }

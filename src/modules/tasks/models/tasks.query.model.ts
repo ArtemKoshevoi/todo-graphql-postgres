@@ -8,4 +8,7 @@ export class TasksQuery {
 
   @Field((type) => Task)
   readonly findOne: Task;
+
+  @Field((of) => [Task], { description: 'Get user tasks' })
+  readonly getUserTasks: Task[];
 }

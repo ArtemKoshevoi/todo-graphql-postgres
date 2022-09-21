@@ -82,4 +82,14 @@ export class TasksService {
   async unAssignTask(input: UnAssignTaskInput): Promise<UserTask> {
     return await this.userTaskService.unAssignTask(input);
   }
+
+  async getUserTasks(userId: string) {
+    const userTasks = await this.userTaskService.getUserTasks(userId);
+    const taskIds = userTasks.map((task) => task.taskId);
+
+    return await this.taskRepository
+      .createQueryBuilder('tasks')
+      .where('tasks.id IN (:taskIds)', { taskIds: taskIds })
+      .getMany();
+  }
 }

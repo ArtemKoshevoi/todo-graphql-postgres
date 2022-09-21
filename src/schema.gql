@@ -63,6 +63,9 @@ type TasksMutation {
   """Create new task"""
   createTask(input: CreateTaskInput!): Task!
 
+  """Get all user tasks"""
+  getUserTasks: [Task!]!
+
   """Remove task"""
   removeTask(id: Int!): Task
 
@@ -76,6 +79,9 @@ type TasksMutation {
 type TasksQuery {
   findAll: [Task!]!
   findOne(id: Int!): Task!
+
+  """Get user tasks"""
+  getUserTasks: [Task!]!
 }
 
 input UnAssignTaskInput {
