@@ -10,6 +10,7 @@ export class GqlConfigService implements GqlOptionsFactory {
     return {
       autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
       sortSchema: true,
+      fieldResolverEnhancers: ['guards'],
     };
   }
 }

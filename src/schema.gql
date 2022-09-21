@@ -57,7 +57,7 @@ type Task {
 
 """TasksMutation"""
 type TasksMutation {
-  """Assign task"""
+  """Assign task to user"""
   assignTask(input: AssignTaskInput!): UserTask!
 
   """Create new task"""
@@ -66,6 +66,9 @@ type TasksMutation {
   """Remove task"""
   removeTask(id: Int!): Task
 
+  """Unassign task"""
+  unAssignTask(input: UnAssignTaskInput!): UserTask!
+
   """Update task"""
   updateTask(input: UpdateTaskInput!): Task!
 }
@@ -73,6 +76,11 @@ type TasksMutation {
 type TasksQuery {
   findAll: [Task!]!
   findOne(id: Int!): Task!
+}
+
+input UnAssignTaskInput {
+  taskId: Int!
+  userId: String!
 }
 
 input UpdateTaskInput {

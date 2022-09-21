@@ -35,9 +35,6 @@ export class RolesGuard implements CanActivate {
       handler,
     );
 
-    // console.log(111, req.user);
-    // console.log(222, roles);
-
     const user = req.user;
 
     if (roles && !user) {
@@ -61,7 +58,5 @@ export class RolesGuard implements CanActivate {
 
       return user.roles && hasRole() && hasPermission();
     }
-
-    return false;
   }
 }

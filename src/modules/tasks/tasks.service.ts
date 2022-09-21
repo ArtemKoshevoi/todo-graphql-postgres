@@ -9,6 +9,7 @@ import { UserTaskService } from '../user-task/user-task.service';
 import { User } from '../users/models/user.entity';
 import { AssignTaskInput } from './dto/assign-task.input';
 import { CreateTaskInput } from './dto/create-task.input';
+import { UnAssignTaskInput } from './dto/un-assign-task.input';
 import { UpdateTaskInput } from './dto/update-task.input';
 import { Task } from './models/task.entity';
 
@@ -64,8 +65,12 @@ export class TasksService {
   }
 
   async assignTask(input: AssignTaskInput): Promise<UserTask> {
-    const { taskId, userId } = input;
+    const { userId, taskId } = input;
 
     return await this.userTaskService.assingTaskToUser(userId, taskId);
+  }
+
+  async unAssignTask(input: UnAssignTaskInput): Promise<UserTask> {
+    return await this.userTaskService.unAssignTask(input);
   }
 }

@@ -5,6 +5,7 @@ import { UserRole } from '../shared/enums/user-role.enum';
 import { User } from '../users/models/user.entity';
 import { AssignTaskInput } from './dto/assign-task.input';
 import { CreateTaskInput } from './dto/create-task.input';
+import { UnAssignTaskInput } from './dto/un-assign-task.input';
 import { UpdateTaskInput } from './dto/update-task.input';
 import { TasksMutation } from './models/tasks.mutation.model';
 import { TasksService } from './tasks.service';
@@ -40,5 +41,11 @@ export class TasksMutationResolver {
   @Roles(UserRole.Admin)
   assignTask(@Args('input') input: AssignTaskInput) {
     return this.tasksService.assignTask(input);
+  }
+
+  @ResolveField()
+  @Roles(UserRole.Admin)
+  unAssignTask(@Args('input') input: UnAssignTaskInput) {
+    return this.tasksService.unAssignTask(input);
   }
 }
