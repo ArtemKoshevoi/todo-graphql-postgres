@@ -11,7 +11,20 @@ export class UserTaskService {
     private readonly userTaskRepository: Repository<UserTask>,
   ) {}
 
+  async getUserTask(userId: string, taskId: number) {
+    return await this.userTaskRepository.findOneBy({
+      userId,
+      taskId,
+    });
+  }
+
   async assingTaskToUser(userId: string, taskId: number) {
+    const userTask = await this.getUserTask(userId, taskId);
+
+    if (userTask) {
+      throw new Error('User task already exists');
+    }
+
     return this.userTaskRepository.save(
       this.userTaskRepository.create({ userId, taskId }),
     );
@@ -20,10 +33,7 @@ export class UserTaskService {
   async unAssignTask(input: UnAssignTaskInput) {
     const { taskId, userId } = input;
 
-    const userTask = await this.userTaskRepository.findOneBy({
-      userId,
-      taskId,
-    });
+    const userTask = await this.getUserTask(userId, taskId);
 
     await this.userTaskRepository.delete(userTask.id);
 

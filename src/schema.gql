@@ -61,7 +61,7 @@ type TasksMutation {
   assignTask(input: AssignTaskInput!): UserTask!
 
   """Create new task"""
-  createTask(input: CreateTaskInput!): UserTask!
+  createTask(input: CreateTaskInput!): Task!
 
   """Remove task"""
   removeTask(id: Int!): Task

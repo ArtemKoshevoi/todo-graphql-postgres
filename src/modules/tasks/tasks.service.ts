@@ -24,13 +24,22 @@ export class TasksService {
     this.myLogger.setContext('TasksService');
   }
 
-  async createTask(input: CreateTaskInput, user: User): Promise<UserTask> {
-    if (user?.roles?.includes(UserRole.User)) {
-      const task = await this.taskRepository.save(
-        this.taskRepository.create(input),
-      );
-      return await this.userTaskService.assingTaskToUser(user.id, task.id);
+  async createTask(input: CreateTaskInput, user: User) {
+    const task = await this.taskRepository.findOneBy({ title: input.title });
+
+    if (task) {
+      throw new Error('Task already exists');
     }
+
+    const newTask = await this.taskRepository.save(
+      this.taskRepository.create(input),
+    );
+
+    if (user?.roles?.includes(UserRole.User)) {
+      this.userTaskService.assingTaskToUser(user.id, newTask.id);
+    }
+
+    return newTask;
   }
 
   async getTask(id: number): Promise<Task> {
