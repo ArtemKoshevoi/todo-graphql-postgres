@@ -89,7 +89,7 @@ export class TasksService {
 
     return await this.taskRepository
       .createQueryBuilder('tasks')
-      .where('tasks.id IN (:taskIds)', { taskIds: taskIds })
+      .where('tasks.id IN (:...taskIds)', { taskIds: taskIds })
       .getMany();
   }
 }
