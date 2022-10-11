@@ -5,6 +5,7 @@ import { Profile } from 'src/modules/profiles/entities/profile.entity';
 import {
   Column,
   Entity,
+  JoinColumn,
   OneToMany,
   OneToOne,
   PrimaryGeneratedColumn,
@@ -33,11 +34,12 @@ export class User {
   @Column({ nullable: true })
   token?: string;
 
-  @Field(() => Profile)
+  @Field(() => Profile, { nullable: true })
   @OneToOne(() => Profile, (profile) => profile.user, {
     cascade: true,
     lazy: true,
   })
+  @JoinColumn()
   profile: Promise<Profile> | Profile;
 
   @RelationId((user: User) => user.profile)

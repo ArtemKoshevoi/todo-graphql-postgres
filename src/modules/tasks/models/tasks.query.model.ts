@@ -1,14 +1,15 @@
 import { Field, ObjectType } from '@nestjs/graphql';
+import { User } from 'src/modules/users/models/user.entity';
 import { Task } from './task.entity';
 
 @ObjectType()
 export class TasksQuery {
-  @Field((type) => [Task])
+  @Field(() => [Task])
   readonly findAll: Task[];
 
-  @Field((type) => Task)
+  @Field(() => Task)
   readonly findOne: Task;
 
-  @Field((of) => [Task], { description: 'Get user tasks' })
-  readonly getUserTasks: Task[];
+  @Field(() => [Task], { description: 'Get user tasks' })
+  readonly getUserTasksByUserId: Task[];
 }

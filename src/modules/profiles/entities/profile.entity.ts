@@ -24,10 +24,9 @@ export class Profile {
     lazy: true,
     onDelete: 'CASCADE',
   })
-  @JoinColumn()
   user: Promise<User> | User;
 
-  @Field(() => Int)
+  @Field()
   @RelationId((profile: Profile) => profile.user)
   readonly userId?: string;
 }

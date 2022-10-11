@@ -16,8 +16,8 @@ export class TasksMutation {
   @Field((of) => UserTask, { description: 'Assign task to user' })
   readonly assignTask: UserTask;
 
-  @Field((of) => UserTask, { description: 'Unassign task' })
-  readonly unAssignTask: UserTask;
+  @Field((of) => Boolean, { description: 'Unassign task' })
+  readonly unAssignTask: boolean;
 
   @Field((of) => [Task], { description: 'Get all user tasks' })
   readonly getUserTasks: Task[];

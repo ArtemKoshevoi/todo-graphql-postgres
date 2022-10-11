@@ -36,7 +36,7 @@ type Mutation {
 
 type Profile {
   id: String!
-  userId: Int!
+  userId: String!
   username: String!
 }
 
@@ -51,6 +51,7 @@ type SignUpResponse {
 }
 
 type Task {
+  assignedTo: [User!]
   id: Int!
   title: String!
 }
@@ -70,7 +71,7 @@ type TasksMutation {
   removeTask(id: Int!): Task
 
   """Unassign task"""
-  unAssignTask(input: UnAssignTaskInput!): UserTask!
+  unAssignTask(input: UnAssignTaskInput!): Boolean!
 
   """Update task"""
   updateTask(input: UpdateTaskInput!): Task!
@@ -81,7 +82,7 @@ type TasksQuery {
   findOne(id: Int!): Task!
 
   """Get user tasks"""
-  getUserTasks: [Task!]!
+  getUserTasksByUserId: [Task!]!
 }
 
 input UnAssignTaskInput {
@@ -96,7 +97,7 @@ input UpdateTaskInput {
 
 type User {
   id: String!
-  profile: Profile!
+  profile: Profile
   roles: [UserRole!]!
   token: String
 }
@@ -108,7 +109,7 @@ input UserLoginInput {
 
 type UserQuery {
   findAll: [User!]!
-  findOne(username: String!): String!
+  findOne(username: String!): User!
 }
 
 """User role"""

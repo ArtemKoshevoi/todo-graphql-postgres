@@ -6,6 +6,6 @@ export class UserQuery {
   @Field((type) => [User])
   readonly findAll: User[];
 
-  @Field((type) => String)
+  @Field((type) => User)
   readonly findOne: User;
 }

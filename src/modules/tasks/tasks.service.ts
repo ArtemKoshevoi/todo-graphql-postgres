@@ -73,23 +73,22 @@ export class TasksService {
     return this.getTask(id);
   }
 
-  async assignTask(input: AssignTaskInput): Promise<UserTask> {
+  assignTask(input: AssignTaskInput): Promise<UserTask> {
     const { userId, taskId } = input;
 
-    return await this.userTaskService.assingTaskToUser(userId, taskId);
+    return this.userTaskService.assingTaskToUser(userId, taskId);
   }
 
-  async unAssignTask(input: UnAssignTaskInput): Promise<UserTask> {
-    return await this.userTaskService.unAssignTask(input);
+  unAssignTask(input: UnAssignTaskInput): boolean {
+    this.userTaskService.unAssignTask(input);
+    return true;
   }
 
-  async getUserTasks(userId: string) {
-    const userTasks = await this.userTaskService.getUserTasks(userId);
-    const taskIds = userTasks.map((task) => task.taskId);
-
-    return await this.taskRepository
-      .createQueryBuilder('tasks')
-      .where('tasks.id IN (:...taskIds)', { taskIds: taskIds })
+  getUserTasksByUserId(userId: string): Promise<Task[]> {
+    return this.taskRepository
+      .createQueryBuilder('task')
+      .leftJoinAndSelect(UserTask, 'userTask', 'task.id=userTask.taskId')
+      .where('userTask.userId = :userId', { userId })
       .getMany();
   }
 }

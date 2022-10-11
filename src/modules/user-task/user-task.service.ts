@@ -42,7 +42,5 @@ export class UserTaskService {
     const userTask = await this.getUserTask(userId, taskId);
 
     await this.userTaskRepository.delete(userTask.id);
-
-    return userTask; //TODO: check how to return nothig (or boolean true like on present perfect)
   }
 }

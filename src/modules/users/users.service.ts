@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+import { UserTask } from '../user-task/models/user-task.entity';
 import { User } from './models/user.entity';
 
 @Injectable()
@@ -11,20 +12,29 @@ export class UsersService {
   ) {}
 
   async findAll(): Promise<User[]> {
-    return this.userRepository.find();
+    const users = await this.userRepository.find({
+      relations: {
+        profile: true,
+      },
+    });
+    return users;
   }
 
-  async findOne(username: string): Promise<User | undefined> {
-    const user = await this.userRepository.findOne({
+  findOne(username: string): Promise<User | undefined> {
+    return this.userRepository.findOne({
       where: { profile: { username: username } },
     });
-
-    return user;
   }
 
-  async findOneByToken(token: string): Promise<User | undefined> {
-    const user = await this.userRepository.findOneBy({ token });
+  findOneByToken(token: string): Promise<User | undefined> {
+    return this.userRepository.findOneBy({ token });
+  }
 
-    return user;
+  getUsersAssignedToTask(taskId: number): Promise<User[]> {
+    return this.userRepository
+      .createQueryBuilder('user')
+      .leftJoinAndSelect(UserTask, 'userTask', 'user.id=userTask.userId')
+      .where('userTask.taskId = :taskId', { taskId })
+      .getMany();
   }
 }
