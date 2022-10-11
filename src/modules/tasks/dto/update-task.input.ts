@@ -1,19 +1,24 @@
 import { Field, InputType, Int } from '@nestjs/graphql';
-import { IsEnum, IsOptional } from 'class-validator';
-
-import { TaskStatus } from 'src/modules/shared/enums/task-status.enum';
+import {
+  IsNotEmpty,
+  IsNumber,
+  IsOptional,
+  IsString,
+  Validate,
+} from 'class-validator';
+import { ShouldExistValidator } from 'src/modules/shared/validators/should-exist-validator';
+import { TasksService } from '../tasks.service';
 
 @InputType()
 export class UpdateTaskInput {
   @Field(() => Int)
+  @IsNumber()
+  @IsNotEmpty()
+  @Validate(ShouldExistValidator, [{ service: TasksService }])
   id: number;
-
-  // @Field(() => TaskStatus)
-  // @IsEnum(TaskStatus)
-  // @IsOptional()
-  // status: TaskStatus;
 
   @Field()
   @IsOptional()
+  @IsString()
   title: string;
 }

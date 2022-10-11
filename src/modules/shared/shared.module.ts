@@ -6,9 +6,10 @@ import { TasksModule } from '../tasks/tasks.module';
 import { UserTaskModule } from '../user-task/user-task.module';
 import { UsersModule } from '../users/users.module';
 import { RolesGuard } from './guards/roles.guard';
+import { ShouldExistValidator } from './validators/should-exist-validator';
 
 const guards = [RolesGuard];
-const providers = [];
+const providers = [ShouldExistValidator];
 const services = [];
 const modules = [
   TasksModule,
