@@ -4,7 +4,7 @@ import { User } from 'src/modules/users/models/user.entity';
 
 @ObjectType()
 export class SignUpResponse {
-  @Field()
+  @Field(() => String)
   access_token: string;
 
   @Field(() => User)

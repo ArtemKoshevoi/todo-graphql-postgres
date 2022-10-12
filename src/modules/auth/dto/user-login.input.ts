@@ -4,9 +4,9 @@ import { getErrorTranslationData } from 'src/modules/shared/utils/get-error-tran
 
 @InputType()
 export class UserLoginInput {
-  @Field()
+  @Field(() => String)
   username: string;
 
-  @Field()
+  @Field(() => String)
   password: string;
 }

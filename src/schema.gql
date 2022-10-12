@@ -56,6 +56,12 @@ type Task {
   title: String!
 }
 
+"""Task Status"""
+enum TaskStatus {
+  Completed
+  Todo
+}
+
 """TasksMutation"""
 type TasksMutation {
   """Assign task to user"""
@@ -127,6 +133,6 @@ input UserSignUpInput {
 type UserTask {
   id: Float!
   taskId: Float!
-  taskStatus: String
+  taskStatus: TaskStatus
   userId: String!
 }

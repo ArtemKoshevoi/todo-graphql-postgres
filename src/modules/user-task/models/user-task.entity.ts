@@ -12,7 +12,7 @@ export class UserTask {
   id: number;
 
   @Column()
-  @Field()
+  @Field(() => String)
   userId: string;
 
   @Column()
@@ -23,7 +23,7 @@ export class UserTask {
     enum: TaskStatus,
     default: TaskStatus.Todo,
   })
-  @Field({ nullable: true })
+  @Field(() => TaskStatus, { nullable: true })
   taskStatus: TaskStatus;
 
   @ManyToOne(() => User, (user) => user.userTask)

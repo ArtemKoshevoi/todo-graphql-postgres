@@ -1,5 +1,5 @@
 import { InputType } from '@nestjs/graphql';
-import { AssignTaskInput } from './assign-task.input';
+import { BaseTaskInput } from './base-task.input';
 
 @InputType()
-export class UnAssignTaskInput extends AssignTaskInput {}
+export class UnAssignTaskInput extends BaseTaskInput {}

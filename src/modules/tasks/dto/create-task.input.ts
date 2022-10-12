@@ -3,7 +3,7 @@ import { IsNotEmpty, IsString } from 'class-validator';
 
 @InputType()
 export class CreateTaskInput {
-  @Field()
+  @Field(() => String)
   @IsString()
   @IsNotEmpty()
   title: string;

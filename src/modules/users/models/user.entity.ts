@@ -11,16 +11,12 @@ import {
   PrimaryGeneratedColumn,
   RelationId,
 } from 'typeorm';
-import { Validate } from 'class-validator';
-import { ShouldExistValidator } from 'src/modules/shared/validators/should-exist-validator';
-import { UsersService } from '../users.service';
 
 @Entity()
 @ObjectType()
 export class User {
   @PrimaryGeneratedColumn('uuid')
-  @Field()
-  // @Validate(ShouldExistValidator, [{ service: UsersService }])
+  @Field(() => String)
   id: string;
 
   @Column({ nullable: true })

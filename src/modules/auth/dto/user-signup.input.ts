@@ -13,7 +13,7 @@ export class UserSignUpInput {
 
   @IsNotEmpty()
   @IsString()
-  @Field()
+  @Field(() => String)
   password: string;
 
   @Field()

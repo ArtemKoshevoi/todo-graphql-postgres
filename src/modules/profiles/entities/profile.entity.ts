@@ -14,11 +14,11 @@ import {
 @ObjectType()
 export class Profile {
   @PrimaryGeneratedColumn('uuid')
-  @Field()
+  @Field(() => String)
   id: string;
 
   @Column()
-  @Field()
+  @Field(() => String)
   username: string;
 
   @OneToOne(() => User, (user) => user.profile, {

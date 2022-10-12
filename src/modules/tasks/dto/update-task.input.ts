@@ -17,7 +17,7 @@ export class UpdateTaskInput {
   @Validate(ShouldExistValidator, [{ service: TasksService }])
   id: number;
 
-  @Field()
+  @Field(() => String)
   @IsOptional()
   @IsString()
   title: string;
