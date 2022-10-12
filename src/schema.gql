@@ -3,7 +3,7 @@
 # ------------------------------------------------------
 
 input AssignTaskInput {
-  taskId: Int!
+  taskId: String!
   userId: String!
 }
 
@@ -52,7 +52,7 @@ type SignUpResponse {
 
 type Task {
   assignedTo: [User!]
-  id: Int!
+  id: String!
   title: String!
 }
 
@@ -92,7 +92,7 @@ type TasksQuery {
 }
 
 input UnAssignTaskInput {
-  taskId: Int!
+  taskId: String!
   userId: String!
 }
 
@@ -132,7 +132,7 @@ input UserSignUpInput {
 
 type UserTask {
   id: Float!
-  taskId: Float!
+  taskId: String!
   taskStatus: TaskStatus
   userId: String!
 }

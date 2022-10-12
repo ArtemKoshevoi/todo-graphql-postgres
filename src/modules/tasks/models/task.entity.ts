@@ -7,9 +7,12 @@ import { User } from 'src/modules/users/models/user.entity';
 @Entity()
 @ObjectType()
 export class Task {
-  @PrimaryGeneratedColumn()
-  @Field(() => Int)
-  id: number;
+  // @PrimaryGeneratedColumn()
+  // @Field(() => Int)
+  // id: number;
+  @PrimaryGeneratedColumn('uuid')
+  @Field(() => String)
+  id: string;
 
   @Field(() => String)
   @Column()

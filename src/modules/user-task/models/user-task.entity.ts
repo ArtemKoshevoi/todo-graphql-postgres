@@ -15,9 +15,9 @@ export class UserTask {
   @Field(() => String)
   userId: string;
 
-  @Column()
-  @Field()
-  taskId: number; // TODO: change to string like userId
+  @Column({ nullable: true })
+  @Field(() => String)
+  taskId: string;
 
   @Column('enum', {
     enum: TaskStatus,

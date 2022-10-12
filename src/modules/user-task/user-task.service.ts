@@ -11,7 +11,7 @@ export class UserTaskService {
     private readonly userTaskRepository: Repository<UserTask>,
   ) {}
 
-  async getUserTask(userId: string, taskId: number) {
+  async getUserTask(userId: string, taskId: string) {
     return await this.userTaskRepository.findOneBy({
       userId,
       taskId,
@@ -24,7 +24,7 @@ export class UserTaskService {
     });
   }
 
-  async assingTaskToUser(userId: string, taskId: number) {
+  async assingTaskToUser(userId: string, taskId: string) {
     const userTask = await this.getUserTask(userId, taskId);
 
     if (userTask) {

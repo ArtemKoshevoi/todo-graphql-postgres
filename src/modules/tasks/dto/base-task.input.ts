@@ -6,10 +6,10 @@ import { TasksService } from '../tasks.service';
 
 @InputType()
 export class BaseTaskInput {
-  @Field(() => Int)
-  @IsNumber()
+  @Field(() => String)
+  @IsString()
   @Validate(ShouldExistValidator, [{ service: TasksService }])
-  taskId: number;
+  taskId: string;
 
   @Field(() => String)
   @IsString()

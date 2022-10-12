@@ -30,7 +30,7 @@ export class UsersService {
     return this.userRepository.findOneBy({ token });
   }
 
-  getUsersAssignedToTask(taskId: number): Promise<User[]> {
+  getUsersAssignedToTask(taskId: string): Promise<User[]> {
     return this.userRepository
       .createQueryBuilder('user')
       .leftJoinAndSelect(UserTask, 'userTask', 'user.id=userTask.userId')
