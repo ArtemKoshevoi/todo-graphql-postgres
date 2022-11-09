@@ -1,6 +1,4 @@
-import { ObjectType, Field, Int } from '@nestjs/graphql';
-import { Validate } from 'class-validator';
-import { ShouldExistValidator } from 'src/modules/shared/validators/should-exist-validator';
+import { ObjectType, Field } from '@nestjs/graphql';
 import { User } from 'src/modules/users/models/user.entity';
 import {
   Column,

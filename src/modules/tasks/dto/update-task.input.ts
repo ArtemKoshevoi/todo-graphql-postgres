@@ -1,4 +1,4 @@
-import { Field, InputType, Int } from '@nestjs/graphql';
+import { Field, InputType } from '@nestjs/graphql';
 import {
   IsNotEmpty,
   IsNumber,
@@ -11,11 +11,11 @@ import { TasksService } from '../tasks.service';
 
 @InputType()
 export class UpdateTaskInput {
-  @Field(() => Int)
+  @Field(() => String)
   @IsNumber()
   @IsNotEmpty()
   @Validate(ShouldExistValidator, [{ service: TasksService }])
-  id: number;
+  id: string;
 
   @Field(() => String)
   @IsOptional()

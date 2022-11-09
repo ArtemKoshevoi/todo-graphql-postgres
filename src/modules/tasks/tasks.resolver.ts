@@ -1,4 +1,4 @@
-import { Args, Int, Parent, ResolveField, Resolver } from '@nestjs/graphql';
+import { Parent, ResolveField, Resolver } from '@nestjs/graphql';
 import { Roles } from '../shared/decorators/roles.decortors';
 import { UserRole } from '../shared/enums/user-role.enum';
 import { UsersService } from '../users/users.service';

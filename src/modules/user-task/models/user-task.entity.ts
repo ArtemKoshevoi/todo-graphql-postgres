@@ -29,6 +29,6 @@ export class UserTask {
   @ManyToOne(() => User, (user) => user.userTask)
   user: User;
 
-  @ManyToOne(() => Task, (task) => task.userTask)
-  task: Task;
+  // @ManyToOne(() => Task, (task) => task.userTask)
+  // task: Task;
 }

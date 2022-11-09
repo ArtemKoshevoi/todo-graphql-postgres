@@ -2,12 +2,12 @@ import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { GraphQLModule } from '@nestjs/graphql';
-import { TypeOrmModule } from '@nestjs/typeorm';
 import { configSchema } from '../config/config.schema';
 import { SharedModule } from '../shared/shared.module';
 import { GqlConfigService } from './graphql/gql-config.service';
 import { AuthMiddleware } from './middlewares/auth.middleware';
-import { TypeOrmConfigService } from './typeorm/typeorm-config.service';
+import { MongooseModule } from '@nestjs/mongoose';
+import { MongooseConfigService } from './mongoose/mongoose-config.service';
 
 @Module({
   imports: [
@@ -16,8 +16,9 @@ import { TypeOrmConfigService } from './typeorm/typeorm-config.service';
       driver: ApolloDriver,
       useClass: GqlConfigService,
     }),
-    TypeOrmModule.forRootAsync({
-      useClass: TypeOrmConfigService,
+    MongooseModule.forRootAsync({
+      imports: [ConfigModule],
+      useClass: MongooseConfigService,
     }),
     ConfigModule.forRoot({
       envFilePath: ['.env'],
