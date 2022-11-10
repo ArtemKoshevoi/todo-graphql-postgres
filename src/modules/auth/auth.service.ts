@@ -1,11 +1,8 @@
 import { Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
 import * as jwt from 'jsonwebtoken';
 
-// import { User } from '../users/models/user.entity';
 import { UsersService } from '../users/users.service';
 import { SignUpResponse } from './dto/signup-response';
 import { ConfigService } from '@nestjs/config';
@@ -20,8 +17,6 @@ export class AuthService {
   private jwtSecretKey = this.configService.get('JWT_SECRET_KEY');
 
   constructor(
-    // @InjectRepository(User)
-    // private userRepository: Repository<User>,
     @InjectModel('Users')
     private readonly usersModel: Model<UserDoc>,
     private usersService: UsersService,
@@ -54,7 +49,7 @@ export class AuthService {
     const userProfile = await createdUser.profile;
 
     const accessToken = this.jwtService.sign({
-      // username: userProfile.username,
+      username: userProfile.username,
       sub: createdUser.id,
     });
 
@@ -86,7 +81,7 @@ export class AuthService {
     const profile = await user.profile;
 
     const accessToken = this.jwtService.sign({
-      // username: profile.username,
+      username: profile.username,
       sub: user._id,
     });
 

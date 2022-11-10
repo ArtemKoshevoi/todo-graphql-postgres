@@ -4,7 +4,6 @@ import { Model } from 'mongoose';
 
 import { MyLogger } from '../logger/my-logger.service';
 import { UserRole } from '../shared/enums/user-role.enum';
-// import { UserTask } from '../user-task/models/user-task.entity';
 import { UserTaskService } from '../user-task/user-task.service';
 import { AssignTaskInput } from './dto/assign-task.input';
 import { CreateTaskInput } from './dto/create-task.input';

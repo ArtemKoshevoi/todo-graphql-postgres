@@ -5,9 +5,9 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { ProfilesSchema } from './models/schemas/profiles.schema';
 
 @Module({
-  // imports: [
-  //   MongooseModule.forFeature([{ name: 'Profile', schema: ProfilesSchema }]),
-  // ],
+  imports: [
+    MongooseModule.forFeature([{ name: 'Profile', schema: ProfilesSchema }]),
+  ],
   providers: [ProfilesResolver, ProfilesService],
 })
 export class ProfilesModule {}

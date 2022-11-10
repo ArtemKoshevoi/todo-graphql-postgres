@@ -6,18 +6,19 @@ import { TasksModule } from '../tasks/tasks.module';
 import { UserTaskModule } from '../user-task/user-task.module';
 import { UsersModule } from '../users/users.module';
 import { RolesGuard } from './guards/roles.guard';
+import { ObjectIdScalar } from './scalars/object-id.scalar';
 import { ShouldExistValidator } from './validators/should-exist-validator';
 
 const guards = [RolesGuard];
-const providers = [ShouldExistValidator];
+const providers = [ShouldExistValidator, ObjectIdScalar];
 const services = [];
 const modules = [
-  // TasksModule,
+  TasksModule,
   LoggerModule,
   AuthModule,
   UsersModule,
-  // ProfilesModule,
-  // UserTaskModule,
+  ProfilesModule,
+  UserTaskModule,
 ];
 
 @Global()

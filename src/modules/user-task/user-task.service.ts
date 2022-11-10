@@ -1,6 +1,4 @@
 import { Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
 import { UnAssignTaskInput } from '../tasks/dto/un-assign-task.input';
 // import { UserTask } from './models/user-task.entity';
 

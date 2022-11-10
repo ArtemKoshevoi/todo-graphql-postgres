@@ -1,5 +1,4 @@
 import { Module } from '@nestjs/common';
-import { TypeOrmModule } from '@nestjs/typeorm';
 import { UsersService } from './users.service';
 import { UsersResolver } from './users.resolver';
 import { UserQueryResolver } from './users.query.resolver';
@@ -11,7 +10,7 @@ import { ProfilesSchema } from '../profiles/models/schemas/profiles.schema';
   imports: [
     MongooseModule.forFeature([
       { name: 'Users', schema: UsersSchema },
-      // { name: 'Profiles', schema: ProfilesSchema },
+      { name: 'Profiles', schema: ProfilesSchema },
     ]),
   ],
 

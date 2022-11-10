@@ -6,9 +6,9 @@ import { ProfilesService } from '../profiles.service';
 
 @InputType()
 export class UpdateProfileInput extends PartialType(CreateProfileInput) {
-  // @Field(() => Int)
-  // @IsNotEmpty()
-  // @IsNumber()
-  // @Validate(ShouldExistValidator, [{ service: ProfilesService }])
-  // _id: number;
+  @Field(() => Int)
+  @IsNotEmpty()
+  @IsNumber()
+  @Validate(ShouldExistValidator, [{ service: ProfilesService }])
+  _id: number;
 }

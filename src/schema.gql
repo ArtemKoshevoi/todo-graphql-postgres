@@ -22,15 +22,20 @@ type LoginResponse {
 
 type Mutation {
   auth: AuthMutation!
+  tasks: TasksMutation!
 }
 
+"""Mongoose object id scalar type"""
+scalar ObjectId
+
 type Profile {
-  _id: String!
-  userId: String!
+  _id: ObjectId!
+  userId: ObjectId!
   username: String!
 }
 
 type Query {
+  tasks: TasksQuery!
   user: UserQuery!
 }
 
@@ -39,8 +44,30 @@ type SignUpResponse {
   user: User!
 }
 
+type Task {
+  id: ObjectId!
+  title: String!
+}
+
+"""TasksMutation"""
+type TasksMutation {
+  """Create new task"""
+  createTask: Task!
+
+  """Remove task"""
+  removeTask: Task
+
+  """Update task"""
+  updateTask: Task!
+}
+
+type TasksQuery {
+  findAll: [Task!]!
+  findOne: Task!
+}
+
 type User {
-  _id: String!
+  _id: ObjectId!
   profile: Profile
   roles: [UserRole!]!
   token: String

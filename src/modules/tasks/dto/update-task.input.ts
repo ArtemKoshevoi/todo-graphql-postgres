@@ -11,13 +11,13 @@ import { TasksService } from '../tasks.service';
 
 @InputType()
 export class UpdateTaskInput {
-  // @Field(() => String)
-  // @IsNumber()
-  // @IsNotEmpty()
-  // @Validate(ShouldExistValidator, [{ service: TasksService }])
-  // id: string;
-  // @Field(() => String)
-  // @IsOptional()
-  // @IsString()
-  // title: string;
+  @Field(() => String)
+  @IsNumber()
+  @IsNotEmpty()
+  @Validate(ShouldExistValidator, [{ service: TasksService }])
+  id: string;
+  @Field(() => String)
+  @IsOptional()
+  @IsString()
+  title: string;
 }

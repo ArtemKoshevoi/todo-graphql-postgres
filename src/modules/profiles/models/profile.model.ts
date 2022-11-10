@@ -4,15 +4,13 @@ import { Document, SchemaTimestampsConfig, Types } from 'mongoose';
 @ObjectType()
 export class Profile {
   @Field()
-  // readonly _id: Types.ObjectId;
-  readonly _id: string;
+  readonly _id: Types.ObjectId;
 
   @Field(() => String)
   username: string;
 
   @Field()
-  // readonly userId: Types.ObjectId;
-  readonly userId: string;
+  readonly userId: Types.ObjectId;
 }
 
 export type ProfileDoc = Profile & Document;
