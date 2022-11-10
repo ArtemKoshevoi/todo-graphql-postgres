@@ -1,5 +1,5 @@
 import { Field, ObjectType } from '@nestjs/graphql';
-import { Task } from './task.entity';
+import { Task } from './task.model';
 
 @ObjectType()
 export class TasksQuery {
@@ -9,6 +9,6 @@ export class TasksQuery {
   @Field(() => Task)
   readonly findOne: Task;
 
-  @Field(() => [Task], { description: 'Get user tasks' })
-  readonly getUserTasksByUserId: Task[];
+  // @Field(() => [Task], { description: 'Get user tasks' })
+  // readonly getUserTasksByUserId: Task[];
 }

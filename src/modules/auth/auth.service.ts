@@ -5,20 +5,25 @@ import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
 import * as jwt from 'jsonwebtoken';
 
-import { User } from '../users/models/user.entity';
+// import { User } from '../users/models/user.entity';
 import { UsersService } from '../users/users.service';
 import { SignUpResponse } from './dto/signup-response';
 import { ConfigService } from '@nestjs/config';
 import { UserSignUpInput } from './dto/user-signup.input';
 import { UserLoginInput } from './dto/user-login.input';
+import { InjectModel } from '@nestjs/mongoose';
+import { Model } from 'mongoose';
+import { UserDoc } from '../users/models/user.model';
 
 @Injectable()
 export class AuthService {
   private jwtSecretKey = this.configService.get('JWT_SECRET_KEY');
 
   constructor(
-    @InjectRepository(User)
-    private userRepository: Repository<User>,
+    // @InjectRepository(User)
+    // private userRepository: Repository<User>,
+    @InjectModel('Users')
+    private readonly usersModel: Model<UserDoc>,
     private usersService: UsersService,
     private jwtService: JwtService,
     private readonly configService: ConfigService,
@@ -33,23 +38,29 @@ export class AuthService {
 
     const { profile, ...data } = input;
 
-    const newUser = this.userRepository.create({
+    const createdUser = new this.usersModel({
       ...data,
       profile: { username: profile.userName },
     });
-    newUser.password = await bcrypt.hash(input.password, 10);
+    // return createdUser.save();
 
-    const createdUser = await this.userRepository.save(newUser);
+    // const newUser = this.userRepository.create({
+    //   ...data,
+    //   profile: { username: profile.userName },
+    // });
+    createdUser.password = await bcrypt.hash(input.password, 10);
+
+    // const createdUser = await this.usersModel.save(newUser);
     const userProfile = await createdUser.profile;
 
     const accessToken = this.jwtService.sign({
-      username: userProfile.username,
+      // username: userProfile.username,
       sub: createdUser.id,
     });
 
-    await this.userRepository.save(
-      this.userRepository.merge(createdUser, { token: accessToken }),
-    );
+    // await this.userRepository.save(
+    //   this.userRepository.merge(createdUser, { token: accessToken }),
+    // );
 
     return {
       access_token: accessToken,
@@ -75,18 +86,18 @@ export class AuthService {
     const profile = await user.profile;
 
     const accessToken = this.jwtService.sign({
-      username: profile.username,
-      sub: user.id,
+      // username: profile.username,
+      sub: user._id,
     });
 
-    await this.userRepository.save(
-      this.userRepository.merge(user, { token: accessToken }),
-    );
+    // await this.userRepository.save(
+    //   this.userRepository.merge(user, { token: accessToken }),
+    // );
 
-    return {
-      access_token: accessToken,
-      user,
-    };
+    // return {
+    //   access_token: accessToken,
+    //   user,
+    // };
   }
 
   getToken(authHeader?: string) {

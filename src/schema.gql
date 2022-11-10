@@ -2,11 +2,6 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
-input AssignTaskInput {
-  taskId: String!
-  userId: String!
-}
-
 """AuthMutation"""
 type AuthMutation {
   """Login and get user and token"""
@@ -20,10 +15,6 @@ input CreateProfileInput {
   userName: String!
 }
 
-input CreateTaskInput {
-  title: String!
-}
-
 type LoginResponse {
   access_token: String!
   user: User!
@@ -31,17 +22,15 @@ type LoginResponse {
 
 type Mutation {
   auth: AuthMutation!
-  tasks: TasksMutation!
 }
 
 type Profile {
-  id: String!
+  _id: String!
   userId: String!
   username: String!
 }
 
 type Query {
-  tasks: TasksQuery!
   user: UserQuery!
 }
 
@@ -50,59 +39,8 @@ type SignUpResponse {
   user: User!
 }
 
-type Task {
-  assignedTo: [User!]
-  id: String!
-  title: String!
-}
-
-"""Task Status"""
-enum TaskStatus {
-  Completed
-  Todo
-}
-
-"""TasksMutation"""
-type TasksMutation {
-  """Assign task to user"""
-  assignTask(input: AssignTaskInput!): UserTask!
-
-  """Create new task"""
-  createTask(input: CreateTaskInput!): Task!
-
-  """Get all user tasks"""
-  getUserTasks: [Task!]!
-
-  """Remove task"""
-  removeTask(id: Int!): Task
-
-  """Unassign task"""
-  unAssignTask(input: UnAssignTaskInput!): Boolean!
-
-  """Update task"""
-  updateTask(input: UpdateTaskInput!): Task!
-}
-
-type TasksQuery {
-  findAll: [Task!]!
-  findOne(id: Int!): Task!
-
-  """Get user tasks"""
-  getUserTasksByUserId: [Task!]!
-}
-
-input UnAssignTaskInput {
-  taskId: String!
-  userId: String!
-}
-
-input UpdateTaskInput {
-  id: Int!
-  title: String!
-}
-
 type User {
-  id: String!
+  _id: String!
   profile: Profile
   roles: [UserRole!]!
   token: String
@@ -128,11 +66,4 @@ input UserSignUpInput {
   password: String!
   profile: CreateProfileInput!
   roles: [UserRole!]!
-}
-
-type UserTask {
-  id: Float!
-  taskId: String!
-  taskStatus: TaskStatus
-  userId: String!
 }

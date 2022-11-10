@@ -1,5 +1,5 @@
 import { Resolver } from '@nestjs/graphql';
-import { Profile } from './entities/profile.entity';
+import { Profile } from './models/profile.model';
 
-@Resolver(() => Profile)
+@Resolver((of) => Profile)
 export class ProfilesResolver {}

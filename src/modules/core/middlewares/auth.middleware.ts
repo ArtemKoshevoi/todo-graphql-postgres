@@ -2,7 +2,7 @@ import { Injectable, NestMiddleware } from '@nestjs/common';
 import { plainToClass } from 'class-transformer';
 import { NextFunction } from 'express';
 import { AuthService } from 'src/modules/auth/auth.service';
-import { User } from 'src/modules/users/models/user.entity';
+import { User } from 'src/modules/users/models/user.model';
 import { UsersService } from 'src/modules/users/users.service';
 @Injectable()
 export class AuthMiddleware implements NestMiddleware {

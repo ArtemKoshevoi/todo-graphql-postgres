@@ -16,11 +16,9 @@ export class MongooseConfigService implements MongooseOptionsFactory {
 
     return {
       uri: `mongodb://${host}:${port}/${dbName}`,
-      user: this.config.get('MONGODB_USER'),
-      pass: this.config.get('MONGODB_PASS'),
-      useCreateIndex: true,
-      useNewUrlParser: true,
-      useFindAndModify: false,
+      // user: this.config.get('MONGODB_USER'),
+      // pass: this.config.get('MONGODB_PASS'),
+      // useNewUrlParser: true,
     };
   }
 }

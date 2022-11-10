@@ -8,19 +8,24 @@ import { AuthResolver } from './auth.resolver';
 import { AuthService } from './auth.service';
 import { JwtStrategy } from './jwt.strategy';
 import { LocalStrategy } from './local.strategy';
-import { User } from '../users/models/user.entity';
+// import { User } from '../users/models/user.entity';
 import { UsersModule } from '../users/users.module';
 import { JwtConfigService } from '../core/jwt/jwt-config.service';
 import { AuthMutationResolver } from './auth.mutation.resolver';
-import { Profile } from 'src/modules/profiles/entities/profile.entity';
 import { ProfilesModule } from 'src/modules/profiles/profiles.module';
-import { UserTask } from '../user-task/models/user-task.entity';
+// import { UserTask } from '../user-task/models/user-task.entity';
+import { UsersSchema } from '../users/schemas/users.shema';
+import { MongooseModule } from '@nestjs/mongoose';
+import { ProfilesSchema } from '../profiles/models/schemas/profiles.schema';
 
 @Module({
   imports: [
     UsersModule,
     ProfilesModule,
-    TypeOrmModule.forFeature([User, Profile, UserTask]),
+    MongooseModule.forFeature([
+      { name: 'Profiles', schema: ProfilesSchema },
+      { name: 'Users', schema: UsersSchema },
+    ]),
     PassportModule,
     JwtModule.registerAsync({
       useClass: JwtConfigService,

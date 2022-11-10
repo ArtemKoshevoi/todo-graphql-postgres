@@ -12,12 +12,12 @@ const guards = [RolesGuard];
 const providers = [ShouldExistValidator];
 const services = [];
 const modules = [
-  TasksModule,
+  // TasksModule,
   LoggerModule,
   AuthModule,
   UsersModule,
-  ProfilesModule,
-  UserTaskModule,
+  // ProfilesModule,
+  // UserTaskModule,
 ];
 
 @Global()

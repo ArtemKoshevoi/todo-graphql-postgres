@@ -1,6 +1,6 @@
 import { Field, ObjectType } from '@nestjs/graphql';
-import { UserTask } from 'src/modules/user-task/models/user-task.entity';
-import { Task } from './task.entity';
+// import { UserTask } from 'src/modules/user-task/models/user-task.entity';
+import { Task } from './task.model';
 
 @ObjectType({ description: 'TasksMutation' })
 export class TasksMutation {
@@ -13,12 +13,12 @@ export class TasksMutation {
   @Field((of) => Task, { description: 'Update task' })
   readonly updateTask: Task;
 
-  @Field((of) => UserTask, { description: 'Assign task to user' })
-  readonly assignTask: UserTask;
+  // @Field((of) => UserTask, { description: 'Assign task to user' })
+  // readonly assignTask: UserTask;
 
-  @Field((of) => Boolean, { description: 'Unassign task' })
-  readonly unAssignTask: boolean;
+  // @Field((of) => Boolean, { description: 'Unassign task' })
+  // readonly unAssignTask: boolean;
 
-  @Field((of) => [Task], { description: 'Get all user tasks' })
-  readonly getUserTasks: Task[];
+  // @Field((of) => [Task], { description: 'Get all user tasks' })
+  // readonly getUserTasks: Task[];
 }
